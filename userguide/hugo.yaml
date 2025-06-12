@@ -20,7 +20,7 @@ imaging:
 
 menu:
   main:
-    - name: Example Site
+    - name: Green Orbit Digital
       weight: 40
       url: https://example.docsy.dev
       post: <sup><i class="ps-1 fa-solid fa-up-right-from-square fa-xs"
@@ -30,7 +30,7 @@ languages:
   en:
     languageName: English
     params:
-      description: Docsy does docs
+      description: Handbook guide
 
 markup:
   tableOfContents:
