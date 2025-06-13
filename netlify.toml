@@ -1,13 +1,29 @@
-# Hugo build configuration for Netlify
-# (https://gohugo.io/hosting-and-deployment/hosting-on-netlify/#configure-hugo-version-in-netlify)
+# Netlify build configuration for Green Orbit Handbook
 
 [build]
-publish = "userguide/public"
-command = "npm run docs-install && npm run build:preview"
+  # Directory to publish after build (should match Hugo's publishDir)
+  publish = "public"
+
+  # Build command: tidy Hugo modules, install npm deps, then build production assets & site
+  command = "hugo mod tidy && npm install && npm run build:production"
 
 [build.environment]
-GO_VERSION = "1.23.5"
-HUGO_THEME = "repo"
+  HUGO_VERSION = "0.147.8"
+  GO_VERSION = "1.20"
+  HUGO_ENV = "production"
+  NODE_VERSION = "20"
+  HUGO_EXTENDED = "true"
 
-[context.production]
-command = "npm run docs-install && npm run build:production"
+# Production-specific environment variables
+[context.production.environment]
+  HUGO_ENABLEGITINFO = "true"
+
+# Preview deploy context - build drafts and future posts, for previewing unpublished content
+[context.deploy-preview]
+  command = "hugo mod tidy && npm install && npm run build:preview"
+  environment = { HUGO_ENV = "development" }
+
+# Branch deploy context - build site normally with base URL set to deploy preview URL
+[context.branch-deploy]
+  command = "hugo mod tidy && npm install && npm run build:production"
+  environment = { HUGO_ENV = "production" }
